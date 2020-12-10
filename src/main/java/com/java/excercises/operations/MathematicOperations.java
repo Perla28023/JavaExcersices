@@ -11,7 +11,7 @@ public class MathematicOperations {
 		MathematicOperations operation = new MathematicOperations();
 		double result;
 		result = operation.getPlusOperation(22.5, 14);
-		System.out.println("Rsult:" + result);
+		System.out.println("Result:" + result);
 
 	}
 }
