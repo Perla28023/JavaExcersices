@@ -1,17 +1,17 @@
 package com.java.excercises.operations;
 
 public class MathematicOperations {
-public int getResidue (int numA, int numB) {
-	int result;
-	result = numA+numB;
-	return result;
-}
-	public static void main (String [] args) {
-	MathematicOperations operation = new MathematicOperations();
-	int result;
-	result= operation.getResidue(22, 14);
-	System.out.println("Rsult:" +result);
-		
+	public double getPlusOperation(double numA, double numB) {
+		double result;
+		result = numA + numB;
+		return result;
+	}
+
+	public static void main(String[] args) {
+		MathematicOperations operation = new MathematicOperations();
+		double result;
+		result = operation.getPlusOperation(22.5, 14);
+		System.out.println("Rsult:" + result);
+
 	}
 }
-
