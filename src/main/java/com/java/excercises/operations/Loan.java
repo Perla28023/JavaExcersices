@@ -19,7 +19,7 @@ public class Loan {
 
 	public double calculateInterest(double loan) {
 		double bankinterest = 0.0;
-        bankinterest = ((loan) + (loan * .05));
+		bankinterest = (loan * .05);
 		return bankinterest;
 	}
 
