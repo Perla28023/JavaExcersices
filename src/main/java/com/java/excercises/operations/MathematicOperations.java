@@ -13,11 +13,21 @@ public class MathematicOperations {
 		return result;
 	}
 
+	public double getBiggestNumber(double numA, double numB) {
+		double biggestnumber;
+		if (numA > numB) {
+			biggestnumber = numA;
+		} else {
+			biggestnumber = numB;
+		}
+		return biggestnumber;
+	}
+
 	public static void main(String[] args) {
 		MathematicOperations operation = new MathematicOperations();
-		double result;
-		result = operation.getMultiplyOperation(22.7, 14);
-		System.out.println("Result:" + result);
+		double biggestnumber;
+		biggestnumber = operation.getBiggestNumber(14, 51);
+		System.out.println("Mensaje:" + biggestnumber);
 
 	}
 
