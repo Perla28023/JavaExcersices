@@ -15,24 +15,20 @@ public class Loan {
 			loan = 500000;
 		}
 		return loan;
-
 	}
 
 	public double calculateInterest(double loan) {
 		double bankinterest = 0.0;
-
-		bankinterest = ((loan) + (loan * .05));
-
+        bankinterest = ((loan) + (loan * .05));
 		return bankinterest;
 	}
 
 	public static void main(String[] args) {
 		Loan objectLoan = new Loan();
-		Loan objectInterest = new Loan();
 		double resultado;
 		double interest;
 		resultado = objectLoan.calculateLoan(50000);
-		interest = objectInterest.calculateInterest(resultado);
+		interest = objectLoan.calculateInterest(resultado);
 		System.out.println("El prestamo es de: $" + resultado + " con un interes de: $" + interest);
 	}
 }
