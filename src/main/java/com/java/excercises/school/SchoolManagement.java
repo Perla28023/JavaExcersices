@@ -6,17 +6,18 @@ import java.util.List;
 public class SchoolManagement {
 
 	
-	private static List <Student> studentList= new ArrayList<>();
+	public static List <Student> studentList= new ArrayList<>();
 	
-	private void addStudentToList(Student student){
+	public void addStudentToList(Student student){
 		studentList.add(student);
 		
 	}
-	private void showStudentList() {
+	List<Student> showStudentList() {
 	
 	for(int i=0; i<studentList.size(); i++) {
 		System.out.println(studentList.get(i));
 	}
+	return studentList;
 	
 	}
 
