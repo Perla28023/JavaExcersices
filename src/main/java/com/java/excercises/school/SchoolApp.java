@@ -7,8 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -20,6 +22,8 @@ import javax.swing.JTextArea;
 import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class SchoolApp extends JFrame {
 
@@ -31,6 +35,10 @@ public class SchoolApp extends JFrame {
 	private JComboBox<String>cmbCareer = new JComboBox<String>();
 	private JTextArea txtList;
 	SchoolManagement manager = new SchoolManagement();
+	
+	private JTable table;
+	private JScrollPane spStudentPayments;
+	private DefaultTableModel tableModelStudentPayments;
 
 	/**
 	 * Launch the application.
@@ -124,34 +132,71 @@ public class SchoolApp extends JFrame {
 		txtPayment.setBounds(92, 196, 86, 20);
 		panel.add(txtPayment);
 		
-		JComboBox cmdCareer = new JComboBox();
-		cmdCareer.setModel(new DefaultComboBoxModel(new String[] {"Selecciona Carrera...", "Ing. en Sistemas Computacionales", "Lic. en Derecho", "Ing. Mecánica", "Lic. en Turismo", "Lic. en Administración"}));
-		cmdCareer.setBounds(92, 162, 158, 22);
-		panel.add(cmdCareer);
-		
-		JTextArea txtList = new JTextArea();
-		txtList.setBackground(SystemColor.controlHighlight);
-		txtList.setBounds(28, 271, 340, 105);
-		panel.add(txtList);
+		cmbCareer = new JComboBox();
+		cmbCareer.setModel(new DefaultComboBoxModel(new String[] {"Selecciona Carrera...", "Ing. en Sistemas Computacionales", "Lic. en Derecho", "Ing. Mecánica", "Lic. en Turismo", "Lic. en Administración"}));
+		cmbCareer.setBounds(92, 162, 158, 22);
+		panel.add(cmbCareer);
 		
 		JButton btnShowAll = new JButton("Mostrar Todos");
 		btnShowAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+	SchoolManagement schoolManagement = new SchoolManagement();
 				
-				txtList.setText(manager.showStudentList().toString());
+				String StudentColumns[] = { "Id", "Nombre", "Carrera", "Pago"};
+				tableModelStudentPayments = new DefaultTableModel(StudentColumns, 0);
+				table = new JTable(tableModelStudentPayments);
+				table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				
+				table.getColumnModel().getColumn(0).setPreferredWidth(20);
+				table.getColumnModel().getColumn(1).setPreferredWidth(40);
+				table.getColumnModel().getColumn(2).setPreferredWidth(200);
+				table.getColumnModel().getColumn(3).setPreferredWidth(40);
+				
+				List<Student> studentList = schoolManagement.showStudentList();
+				
+				for(Student student : studentList) {
+				Object[] studentItems = { student.getIdStudent(), student.getStudentName(),student.getCareer(), student.getPayment()};
+				tableModelStudentPayments.addRow(studentItems);
+				
+			}
+				spStudentPayments.setViewportView(table);
+
 			}
 		});
-		btnShowAll.setBounds(145, 386, 114, 23);
+		btnShowAll.setBounds(126, 399, 136, 23);
 		panel.add(btnShowAll);
 		
 		txtGetStudentId = new JTextField();
 		txtGetStudentId.setColumns(10);
-		txtGetStudentId.setBounds(164, 240, 86, 20);
+		txtGetStudentId.setBounds(163, 238, 86, 23);
 		panel.add(txtGetStudentId);
 		
 		JButton btnSearch = new JButton("Buscar");
-		btnSearch.setBounds(260, 237, 79, 23);
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				SchoolManagement schoolManagement = new SchoolManagement();
+				
+				String StudentColumns[] = { "Id", "Nombre", "Carrera", "Pago"};
+				tableModelStudentPayments = new DefaultTableModel(StudentColumns, 0);
+				table = new JTable(tableModelStudentPayments);
+				table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				
+				table.getColumnModel().getColumn(0).setPreferredWidth(20);
+				table.getColumnModel().getColumn(1).setPreferredWidth(100);
+				table.getColumnModel().getColumn(2).setPreferredWidth(200);
+				table.getColumnModel().getColumn(3).setPreferredWidth(100);
+				
+				Student student = schoolManagement.searchStudentId(Integer.parseInt(txtGetStudentId.getText()));
+				
+				Object[] studentItems = { student.getIdStudent(), student.getStudentName(),student.getCareer(), student.getPayment()};
+				tableModelStudentPayments.addRow(studentItems);
+				spStudentPayments.setViewportView(table);
+			}
+			
+		});
+		btnSearch.setBounds(273, 238, 79, 23);
 		panel.add(btnSearch);
 		
 		JButton btnClose = new JButton("Salir");
@@ -160,7 +205,7 @@ public class SchoolApp extends JFrame {
 				System.exit(0);
 			}
 		});
-		btnClose.setBounds(320, 410, 65, 23);
+		btnClose.setBounds(325, 420, 65, 23);
 		panel.add(btnClose);
 		
 		JLabel lblNewLabel_1_3 = new JLabel("Tecnológico de Estudios Superiores de Cuautitlán Izcalli");
@@ -176,6 +221,13 @@ public class SchoolApp extends JFrame {
 		JLabel lblNewLabel_1_2_2 = new JLabel("Consulta por idAlumno:");
 		lblNewLabel_1_2_2.setBounds(28, 246, 136, 14);
 		panel.add(lblNewLabel_1_2_2);
+		
+        spStudentPayments = new JScrollPane();
+		spStudentPayments.setBounds(28, 281, 347, 107);
+		panel.add(spStudentPayments);
+		
+		table = new JTable();
+		spStudentPayments.setViewportView(table);
 		
 	}
 }
